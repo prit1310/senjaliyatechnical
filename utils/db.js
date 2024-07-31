@@ -6,7 +6,10 @@ const URI = "mongodb+srv://pritpatel6098:YybMzzjIPB3QbgbU@cluster0.frcr2n5.mongo
 
 const connectDb = async ()=>{
     try {
-        await mongoose.connect(URI)
+        await mongoose.connect(URI, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        })
         console.log("connection success with dabase");
     } catch (error) {
         console.log("database connecction failed");

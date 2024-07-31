@@ -7,6 +7,7 @@ const serviceRoute = require("./router/service-router");
 const adminRoute = require("./router/admin-router");
 const connectDb = require("./utils/db");
 const errorMiddleware = require('./middlewares/error-middleware');
+require('dotenv').config();
 
 const corsOptions = {
     origin: "http://localhost:5173",
@@ -17,7 +18,6 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
-
 app.use("/api/auth", authRoute);
 app.use("/api/form", contactRoute);
 app.use("/api/data", serviceRoute);
@@ -25,10 +25,12 @@ app.use("/api/admin", adminRoute);
 
 app.use(errorMiddleware);
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 connectDb().then(() => {
-    app.listen(process.env.PORT, () => {
+    app.listen(PORT, () => {
         console.log(`Server is running at port: ${PORT}`);
     });
+}).catch(error => {
+    console.error('Failed to connect to the database and start the server:', error.message);
 });
