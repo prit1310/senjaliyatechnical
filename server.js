@@ -8,7 +8,6 @@ const serviceRoute = require("./router/service-router");
 const adminRoute = require("./router/admin-router");
 const connectDb = require("./utils/db");
 const errorMiddleware = require('./middlewares/error-middleware');
-const path = require("path");
 
 const corsOptions = {
     origin: "http://localhost:5173",
@@ -19,13 +18,6 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
-// Use client app
-app.use(express.static(path.join(__dirname, "/client/dist")));
-
-// Render client for any path
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, "/client/dist/index.html"));
-});
 
 app.use("/api/auth", authRoute);
 app.use("/api/form", contactRoute);
