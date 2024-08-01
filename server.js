@@ -35,7 +35,7 @@ app.get("*", (req, res) => {
 
 app.use(errorMiddleware);
 
-const PORT =  3000;
+const PORT =  3001;
 
 connectDb().then(() => {
     app.listen(PORT, () => {
