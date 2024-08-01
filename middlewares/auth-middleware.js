@@ -1,3 +1,4 @@
+require('dotenv').config();
 const jwt = require("jsonwebtoken")
 const User = require("../models/user-model")
 
@@ -9,7 +10,7 @@ const authMiddleware = async (req,res,next)=>{
     }
 
     const jwtToken = token.replace("Bearer","").trim()
-    const JWT_SECRET_KEY = "PRITSENJALIYA"
+    const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
     try {
         const isVerified = jwt.verify(jwtToken,JWT_SECRET_KEY)
 

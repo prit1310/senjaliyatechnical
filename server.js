@@ -26,9 +26,16 @@ app.use("/api/form", contactRoute);
 app.use("/api/data", serviceRoute);
 app.use("/api/admin", adminRoute);
 
+//for live server
+app.use(express.static(path.join(__dirname, "/client/dist")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+});
+
 app.use(errorMiddleware);
 
-const PORT = process.env.PORT || 3000;
+const PORT =  3000;
 
 connectDb().then(() => {
     app.listen(PORT, () => {
