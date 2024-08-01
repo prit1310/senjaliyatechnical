@@ -46,7 +46,7 @@ const AdminContacts = () => {
 
   useEffect(() => {
     getContactsData()
-  }, [])
+  }, [deleteContactById])
 
   return (
     <>

@@ -1,61 +1,63 @@
-import React, { useState } from 'react'
+import React, {useEffect, useState } from 'react'
 import { useAuth } from '../store/auth'
-import {toast} from "react-toastify"
-
-const defaultContactForm = {
-  username:"",
-  email:"",
-  message:"",
-}
+import { toast } from "react-toastify"
 
 const Contact = () => {
-  const {user} = useAuth()
-  const [contact,setContact] = useState(defaultContactForm)
+  const { user } = useAuth()
+  const [contact, setContact] = useState({
+    username: "",
+    email: "",
+    message: "",
+  })
 
-  const [userData,setUserData] = useState(true)
+  const [userData, setUserData] = useState(true)
 
-  if(userData && user){
+  if (userData && user) {
     setContact({
-      username:user.username,
-      email:user.email,
-      message:"",
+      username: user.username,
+      email: user.email,
+      message: "",
     })
     setUserData(false)
   }
 
-  const handleInput = (e)=>{
+
+  const handleInput = (e) => {
     let name = e.target.name;
     let value = e.target.value;
     setContact({
       ...contact,
-      [name]:value,
+      [name]: value,
     })
   }
 
 
-  const handleSubmit = async (e)=>{
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    
+
     try {
-      const response = await fetch("/api/form/contact",{
-        method:"POST",
-        headers:{
+      const response = await fetch("/api/form/contact", {
+        method: "POST",
+        headers: {
           'Content-Type': "application/json",
         },
-        body:JSON.stringify(contact)
+        body: JSON.stringify(contact)
       })
       if (response.ok) {
-        const responseData = await response.json();
+        setContact({
+          username: user.username,
+          email: user.email,
+          message: "",
+        });
         toast.success("message send successfully");
-        console.log("response data",responseData);
-        setContact(defaultContactForm)
       } else {
         console.log("error inside response ", "error");
       }
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
   }
+
 
   return (
     <>
@@ -81,12 +83,12 @@ const Contact = () => {
                 <label htmlFor="email">email</label>
                 <input type="email" name="email" required
                   placeholder="email" id="email" autoComplete="off"
-                  value={contact.email} onChange={handleInput}/>
+                  value={contact.email} onChange={handleInput} />
               </div>
               <div>
                 <label htmlFor="message">message</label>
                 <textarea name="message" id="message" cols="30" rows="10" required autoComplete="off"
-                 value={contact.message} onChange={handleInput}></textarea>
+                  value={contact.message} onChange={handleInput}></textarea>
               </div>
               <br />
               <div>
@@ -106,7 +108,7 @@ const Contact = () => {
             referrerPolicy="no-referrer-when-downgrade"
           ></iframe>
         </section>
-        
+
       </section>
     </>
   )

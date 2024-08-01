@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { NavLink } from "react-router-dom";
 import Analytics from './Analytics';
 import { useAuth } from '../store/auth'
 
 const About = () => {
-  const {user} = useAuth()
+  const {user} = useAuth();
+  useEffect(()=>{
+
+  },[])
 
   return (
     <>
@@ -12,7 +15,11 @@ const About = () => {
         <section className="section-hero">
           <div className="container grid grid-two-cols">
             <div className="hero-content">
-              <p>Welcome, {user ? `${user.username} to our website` : "to our website"}</p>
+            {user ? (
+                <p>Welcome {user.username},</p>
+              ) : (
+                <p>Welcome to our website</p>
+              )}
               <h1>Why Choose Us? </h1>
               <p>
                 Expertise: Our team consists of experienced IT professionals who

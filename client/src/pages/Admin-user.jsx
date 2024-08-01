@@ -44,7 +44,7 @@ const Adminusers = () => {
     }
     useEffect(() => {
         getAllUserData()
-    }, [])
+    }, [deleteUser])
 
     return (
         <>
