@@ -29,7 +29,6 @@ const Adminusers = () => {
                 },
             })
             const data = await response.json()
-            console.log(`users after delete ${data}`);
 
             if(response.ok){
                 toast.success("Deleted successfully")

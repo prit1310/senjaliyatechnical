@@ -26,7 +26,6 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log(user)
 
     try {
       const response = await fetch("/api/auth/register", {
@@ -36,10 +35,8 @@ const Register = () => {
         },
         body: JSON.stringify(user),
       });
-      console.log("response data : ", response);
 
       const responseData = await response.json();
-      console.log(responseData);
 
       if (response.ok) {
         toast.success("registration successfully");

@@ -32,10 +32,8 @@ const Login = () => {
         },
         body: JSON.stringify(user),
       });
-      console.log("response data : ", response);
 
       const responseData = await response.json();
-      console.log("response data",responseData);
 
       if (response.ok) {
         toast.success("login successfully");
